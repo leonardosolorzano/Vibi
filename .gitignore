@@ -1,0 +1,95 @@
+# Root ignore for Vibi monorepo
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyd
+.Python
+.build/
+*.egg-info/
+.eggs/
+.eggs
+*.egg
+*.manifest
+*.spec
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+env.bak/
+.venv.bak/
+
+# dotenv
+.env
+.env.*
+!.env.example
+
+# Byte-compiled / optimized / DLL files
+*.so
+*.dylib
+*.dll
+
+# Distribution / packaging
+build/
+dist/
+wheels/
+*.egg
+*.egg-info/
+.installed.cfg
+pip-wheel-metadata/
+
+# SQLite
+*.db
+*.sqlite
+*.sqlite3
+
+# Logs
+*.log
+logs/
+
+# Node / frontend
+node_modules/
+**/node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+package-lock.json
+pnpm-lock.yaml
+
+# Build outputs
+dist/
+build/
+*.local
+
+# Editor directories and files
+.vscode/
+.idea/
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+*.swp
+*~
+
+# Docker
+docker-compose.override.yml
+
+# Misc
+*.bak
+*.tmp
+**/__pycache__/
+**/*.pyc
+
+# Generated files
+*.log
+
+# Exclude local environment files
+backend/.env
+frontend/.env

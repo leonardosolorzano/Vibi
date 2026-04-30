@@ -73,7 +73,7 @@ Backend moderno y escalable para una plataforma de reserva de alojamientos const
 
 - Python >= 3.10
 - PostgreSQL >= 12
-- pip o poetry para gestión de dependencias
+- uv (gestión de entorno y dependencias)
 
 ---
 
@@ -86,27 +86,17 @@ git clone https://github.com/tu-usuario/vibi-backend.git
 cd vibi-backend
 ```
 
-### 2. Crear y activar entorno virtual
+### 2. Crear entorno e instalar dependencias con uv
 
 ```bash
-# Con venv
-python -m venv .venv
-source .venv/bin/activate  # En Windows: .venv\\Scripts\\activate
+# Crear .venv y sincronizar dependencias de runtime
+uv sync
 
-# O con conda
-conda create -n vibi python=3.11
-conda activate vibi
+# Incluir también dependencias de desarrollo y testing
+uv sync --dev
 ```
 
-### 3. Instalar dependencias
-
-```bash
-pip install -r requirements.txt
-# O si usas poetry:
-poetry install
-```
-
-### 4. Configurar variables de entorno
+### 3. Configurar variables de entorno
 
 ```bash
 # Copiar archivo de ejemplo
@@ -123,7 +113,7 @@ DEBUG=False
 SECRET_KEY=tu-clave-secreta-aqui
 ```
 
-### 5. Crear base de datos
+### 4. Crear base de datos
 
 ```bash
 # Crear BD (en PostgreSQL)
@@ -179,7 +169,7 @@ vibi-backend/
 ├── README.md                   # Este archivo
 ├── .env.example                # Variables de entorno de ejemplo
 ├── .gitignore
-└── requirements.txt            # Dependencias del proyecto
+└── uv.lock                     # Lockfile de dependencias (uv)
 ```
 
 ---
@@ -923,16 +913,16 @@ async def test_create_user():
 
 ```bash
 # Todos los tests
-pytest
+uv run pytest
 
 # Con cobertura
-pytest --cov=app
+uv run pytest --cov=app
 
 # Modo verbose
-pytest -vv
+uv run pytest -vv
 
 # Tests específicos
-pytest tests/test_bookings.py::test_create_booking
+uv run pytest tests/test_bookings.py::test_create_booking
 ```
 
 ---
@@ -946,8 +936,8 @@ FROM python:3.11-slim
 
 WORKDIR /app
 
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+COPY pyproject.toml uv.lock ./
+RUN pip install --no-cache-dir uv && uv sync --frozen
 
 COPY . .
 

@@ -8,17 +8,8 @@ Este archivo contiene instrucciones para ejecutar rápidamente el proyecto en de
 # PASO 1: Preparar el Entorno
 # ============================================================================
 
-# 1. Crear y activar entorno virtual (desde la raíz del proyecto)
-#    En Linux/Mac:
-#    python -m venv .venv
-#    source .venv/bin/activate
-#
-#    En Windows:
-#    python -m venv .venv
-#    .venv\Scripts\activate
-
-# 2. Instalar dependencias
-#    pip install -r requirements.txt
+# 1. Instalar dependencias con uv (desde la raíz del proyecto)
+#    uv sync --dev
 
 # 3. Crear archivo .env (copiar desde .env.example)
 #    cp .env.example .env
@@ -45,11 +36,11 @@ Este archivo contiene instrucciones para ejecutar rápidamente el proyecto en de
 # PASO 3: Ejecutar la Aplicación
 # ============================================================================
 
-# Opción 1: Uvicorn directo (recomendado para desarrollo)
-#    uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
-
-# Opción 2: Python -m
-#    python -m uvicorn app.main:app --reload
+# Opción recomendada (FastAPI CLI con uv)
+#    uv run fastapi dev main.py
+#
+# Opción alternativa
+#    uv run uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 
 # La aplicación estará disponible en: http://localhost:8000
 
@@ -183,7 +174,7 @@ Este archivo contiene instrucciones para ejecutar rápidamente el proyecto en de
 
 # Problema: Puerto 8000 ocupado
 # Solución: Usa otro puerto
-#    uvicorn app.main:app --port 8001
+#    uv run fastapi dev main.py --port 8001
 
 
 # ============================================================================
@@ -197,3 +188,19 @@ Este archivo contiene instrucciones para ejecutar rápidamente el proyecto en de
 # 5. Estudiar el código de services/ para entender la lógica
 # 6. Implementar tests en tests/
 # 7. Agregar autenticación JWT en app/core/auth.py
+
+# ============================================================================
+# TESTING CON UV
+# ============================================================================
+#
+# Ejecutar toda la suite:
+#    uv run pytest
+#
+# Ejecutar en verbose:
+#    uv run pytest -vv
+#
+# Ejecutar un test puntual:
+#    uv run pytest tests/test_bookings.py::TestBookings::test_create_booking_success
+#
+# Con cobertura:
+#    uv run pytest --cov=app

@@ -48,7 +48,7 @@ Tu backend de **API de Reserva de Alojamientos** está completamente implementad
 ```
 ✓ .env.example
 ✓ pyproject.toml actualizado
-✓ requirements.txt con todas las dependencias
+✓ pyproject.toml + uv.lock para dependencias
 ✓ .gitignore apropiado
 ✓ app/__init__.py
 ✓ core/__init__.py
@@ -72,7 +72,7 @@ vibi-backend/
 ├── 📄 CONTRIBUTING.md                # Para contribuidores
 ├── 📄 DOCUMENTATION.md               # Índice de documentación
 ├── 📄 pyproject.toml                 # Configuración proyecto
-├── 📄 requirements.txt                # Dependencias
+├── 📄 uv.lock                         # Lockfile de dependencias
 ├── 📄 .env.example                   # Variables de ejemplo
 ├── 📄 .gitignore
 │
@@ -131,13 +131,11 @@ vibi-backend/
 cat QUICKSTART.md
 
 # 2. Instalar
-python -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
+uv sync --dev
 
 # 3. Ejecutar
 cp .env.example .env
-uvicorn app.main:app --reload
+uv run fastapi dev main.py
 
 # 4. Probar
 # Ir a http://localhost:8000/docs
@@ -406,7 +404,7 @@ Tests
 Configuración
 [✓] .env.example
 [✓] pyproject.toml
-[✓] requirements.txt
+[✓] uv.lock
 [✓] .gitignore
 [✓] Estructura de carpetas
 ```
@@ -478,20 +476,25 @@ cat README.md
 
 ### Instalación (30 segundos)
 ```bash
-python -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
+uv sync --dev
 ```
 
 ### Ejecución (5 segundos)
 ```bash
 cp .env.example .env
-uvicorn app.main:app --reload
+uv run fastapi dev main.py
 ```
 
 ### Acceso (1 segundo)
 ```
 http://localhost:8000/docs  # Swagger UI
+```
+
+### Tests con uv (10 segundos)
+```bash
+uv run pytest
+uv run pytest -vv
+uv run pytest --cov=app
 ```
 
 ---

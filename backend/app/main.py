@@ -13,7 +13,7 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.api import bookings_router, properties_router, users_router
+from app.api import auth_router, bookings_router, properties_router, users_router
 from app.core.config import settings
 from app.core.database import close_db, init_db
 
@@ -50,6 +50,7 @@ app.add_middleware(
 )
 
 # Inclusión de routers
+app.include_router(auth_router)
 app.include_router(users_router)
 app.include_router(properties_router)
 app.include_router(bookings_router)
